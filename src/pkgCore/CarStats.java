@@ -12,7 +12,7 @@ public class CarStats
 		super();
 		this.totalPrice = totalPrice;
 		this.downPay = downPay;
-		this.intrestRate = intrestRate;
+		this.intrestRate = intrestRate/100 + 1;
 		this.loanLen = loanLen;
 	}
 
@@ -56,6 +56,19 @@ public class CarStats
 		this.loanLen = loanLen;
 	}
 	
+	public double getPrincipal()
+	{
+		return totalPrice - downPay;
+	}
 	
+	public double monthlyPayment()
+	{
+		return ((getPrincipal()) * intrestRate) / loanLen;
+	}
+	
+	public double totalIntrestPay()
+	{
+		return getPrincipal() * intrestRate - getPrincipal();
+	}
 	
 }
