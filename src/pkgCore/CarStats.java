@@ -1,5 +1,5 @@
 package pkgCore;
-
+import org.apache.poi.ss.formula.functions.Finance;
 public class CarStats
 {
 	// Attributes
@@ -12,7 +12,7 @@ public class CarStats
 		super();
 		this.totalPrice = totalPrice;
 		this.downPay = downPay;
-		this.intrestRate = intrestRate/100 + 1;
+		this.intrestRate = intrestRate;
 		this.loanLen = loanLen;
 	}
 
@@ -56,19 +56,15 @@ public class CarStats
 		this.loanLen = loanLen;
 	}
 	
-	public double getPrincipal()
-	{
-		return totalPrice - downPay;
-	}
-	
 	public double monthlyPayment()
 	{
-		return ((getPrincipal()) * intrestRate) / loanLen;
+		return Finance.pmt(intrestRate/12, loanLen, totalPrice-downPay);
 	}
 	
 	public double totalIntrestPay()
 	{
-		return getPrincipal() * intrestRate - getPrincipal();
+		return (loanLen*monthlyPayment()) + (totalPrice-downPay);	
+		
 	}
 	
 }
